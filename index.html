@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud System</title>
+    <link rel="shortcut icon" href="./images/3.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <main>
+
+        <section>
+            <div class="container bg-info rounded-4">
+                <h1 class="text-center text-uppercase my-2">crud System</h1>
+                <div class="inputs">
+                    <div class="form-floating mb-3 my-2">
+                        <input type="text" class="form-control" id="productName" placeholder="">
+                        <label for="productName">ProductName</label>
+                    </div>
+                    <div class="form-floating mb-3 my-2">
+                        <input type="number" class="form-control" id="productPrice" placeholder="">
+                        <label for="productPrice">ProductPrice</label>
+                    </div>
+
+                    <div class="form-floating mb-3 my-2">
+                        <input list="list" type="text" class="form-control" id="productCategory" placeholder="">
+                        <label for="productCategory">ProductCategory</label>
+
+                        <datalist id="list">
+                            <option value="tv"></option>
+                            <option value="mobile"></option>
+                            <option value="screens"></option>
+                            <option value="electronics"></option>
+                        </datalist>
+                    </div>
+
+
+
+                    <div class="form-floating mb-3 my-2">
+
+                        <textarea id="productDescription" placeholder="" style="height: 100px;"
+                            class="form-control"></textarea>
+                        <label for="productDescription">ProductDescription</label>
+
+                    </div>
+
+
+
+                    <div class="form-floating mb-3 my-2">
+                        <input type="file" class="form-control" id="productImage" placeholder="">
+                        <label for="productImage">ProductImage</label>
+                    </div>
+
+                    <button id="btnAdd" onclick="addProduct()" class="btn btn-primary btn-sm mb-3">Add Product</button>
+                    <button id="btnUpdate" onclick="updateData()" class="btn btn-warning btn-sm mb-3 d-none">Update Product</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container-fluid">
+                <input type="search" oninput="searchItem()" id="searchInput" placeholder="Search By Name" class="form-control w-50 mx-auto my-4">
+
+                <div id="rowData" class="row my-4 g-4 row-cols-1 row-cols-md-4 row-cols-lg-5 p-3">
+                   
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
