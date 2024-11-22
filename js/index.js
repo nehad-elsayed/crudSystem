@@ -89,14 +89,14 @@ function searchItem() {
 function htmlData(i) {
   return `
         <div class="col">
-                               <div class="card " >
-                                   <img height="200px" id="productImage" class="card-img-top" src=" ${productList[i].image} " alt=" ${productList[i].name} " />
-                                   <div class="card-body">
-                                       <span class="badge bg-info">index:${i}</span>
-                                       <h3 class="card-title h6">ProductName:${productList[i].name}</h3>
-                                       <p class="card-text">ProductPrice: ${productList[i].price} </p>
-                                       <p class="card-text">ProductCategory: ${productList[i].category} </p>
-                                       <p class="card-text">ProductDescription: ${productList[i].description} </p>
+                               <div class="card h-100" >
+                                   <img height="150px" id="productImage" class="card-img-top" src=" ${productList[i].image} " alt=" ${productList[i].name} " />
+                                   <div class="card-body text-center">
+                                       <span class="badge bg-info">Id:${i+1}</span>
+                                       <h3 class="card-title h6">${productList[i].name}</h3>
+                                       <p class="card-text"> ${productList[i].price} </p>
+                                       <p class="card-text"> ${productList[i].category} </p>
+                                       <p class="card-text"> ${productList[i].description} </p>
                                    </div>
                                    <div class="card-footer text-center">
                                        <button id="delete" onclick="deleteData(${i})" class="btn btn-outline-danger btn-sm"> <i
