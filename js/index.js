@@ -87,6 +87,7 @@ function searchItem() {
 /********END FUNCTION searchItems ***************************/
 
 function htmlData(i) {
+  var regex =new RegExp( productSearchInput.value,'gi')
   return `
         <div class="col">
                                <div class="card h-100" >
@@ -96,7 +97,7 @@ function htmlData(i) {
                                    <div class="card-body text-center">
                                        <span class="badge">Id:${i + 1}</span>
                                        <h3 class="card-title h6">${
-                                         productList[i].name
+                                         productList[i].name.replace(regex,(match)=>`<span class="bg-warning">${match}</span>`)
                                        }</h3>
                                        <p class="card-text"> ${
                                          productList[i].price
