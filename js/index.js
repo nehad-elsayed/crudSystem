@@ -21,12 +21,12 @@ if (localStorage.getItem("productContainer") !== null) {
 /**************START FUNCTION addProduct ***************************/
 function addProduct() {
   var product = {
-    name: productNameInput.value,
+    name: productNameInput.value.trim(),
     price: productPriceInput.value,
-    category: productCategoryInput.value,
-    description: productDescriptionInput.value,
+    category: productCategoryInput.value.trim(),
+    description: productDescriptionInput.value.trim(),
     image: productImageInput.files[0]
-      ? `images/${productImageInput.files[0]?.name}`
+      ? `images/${productImageInput.files[0].name}`
       : "images/2.jpg",
   };
 
@@ -56,27 +56,7 @@ function clearForm() {
 function displayData() {
   var content = "";
   for (var i = 0; i < productList.length; i++) {
-    content += `
- <div class="col">
-                        <div class="card">
-                            <img height="200px" id="productImage" class="card-img-top" src=" ${productList[i].image} " alt=" ${productList[i].name} " />
-                            <div class="card-body">
-                                <span class="badge bg-info">index:${i}</span>
-                                <h3 class="card-title h6">ProductName:${productList[i].name}</h3>
-                                <p class="card-text">ProductPrice: ${productList[i].price} </p>
-                                <p class="card-text">ProductCategory: ${productList[i].category} </p>
-                                <p class="card-text">ProductDescription: ${productList[i].description} </p>
-                            </div>
-                            <div class="card-footer text-center">
-                                <button  onclick="deleteData(${i})" class="btn btn-outline-danger btn-sm"> <i
-                                        class="fa-solid fa-trash-can"></i></button>
-                                <button onclick="prepareUpdateInfo(${i})"  class="btn btn-outline-warning btn-sm"> <i
-                                        class="fa-solid fa-pen-to-square"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-`;
+    content += htmlData(i);
   }
 
   document.getElementById("rowData").innerHTML = content;
@@ -99,7 +79,15 @@ function searchItem() {
   var content = "";
   for (var i = 0; i < productList.length; i++) {
     if (productList[i].name.toLowerCase().includes(term.toLowerCase())) {
-      content += `
+      content += htmlData(i);
+    }
+  }
+  document.getElementById("rowData").innerHTML = content;
+}
+/********END FUNCTION searchItems ***************************/
+
+function htmlData(i) {
+  return `
         <div class="col">
                                <div class="card " >
                                    <img height="200px" id="productImage" class="card-img-top" src=" ${productList[i].image} " alt=" ${productList[i].name} " />
@@ -120,11 +108,7 @@ function searchItem() {
                            </div>
        
        `;
-    }
-  }
-  document.getElementById("rowData").innerHTML = content;
 }
-/********END FUNCTION searchItems ***************************/
 
 /********START FUNCTION updateData ***************************/
 
@@ -139,7 +123,7 @@ function prepareUpdateInfo(index) {
   productPriceInput.value = productList[index].price;
   productCategoryInput.value = productList[index].category;
   productDescriptionInput.value = productList[index].description;
-// واظهر زرار الابديت واخفي زرار الادد
+  // واظهر زرار الابديت واخفي زرار الادد
   btnAdd.classList.add("d-none");
   btnUpdate.classList.remove("d-none");
 }
