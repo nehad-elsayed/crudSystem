@@ -1,0 +1,13 @@
+#rowData .card-body {
+
+    color: #e70a55;
+    font-weight: 700;
+    font-style: italic;
+
+}
+
+#rowData .card-body span {
+    background-color: #e70a55;
+    margin-bottom: 10px;
+    font-size: 16px;
+}

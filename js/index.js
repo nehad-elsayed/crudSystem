@@ -90,18 +90,28 @@ function htmlData(i) {
   return `
         <div class="col">
                                <div class="card h-100" >
-                                   <img height="150px" id="productImage" class="card-img-top" src=" ${productList[i].image} " alt=" ${productList[i].name} " />
+                                   <img height="150px" id="productImage" class="card-img-top" src=" ${
+                                     productList[i].image
+                                   } " alt=" ${productList[i].name} " />
                                    <div class="card-body text-center">
-                                       <span class="badge bg-info">Id:${i+1}</span>
-                                       <h3 class="card-title h6">${productList[i].name}</h3>
-                                       <p class="card-text"> ${productList[i].price} </p>
-                                       <p class="card-text"> ${productList[i].category} </p>
-                                       <p class="card-text"> ${productList[i].description} </p>
+                                       <span class="badge">Id:${i + 1}</span>
+                                       <h3 class="card-title h6">${
+                                         productList[i].name
+                                       }</h3>
+                                       <p class="card-text"> ${
+                                         productList[i].price
+                                       } </p>
+                                       <p class="card-text"> ${
+                                         productList[i].category
+                                       } </p>
+                                       <p class="card-text"> ${
+                                         productList[i].description
+                                       } </p>
                                    </div>
                                    <div class="card-footer text-center">
                                        <button id="delete" onclick="deleteData(${i})" class="btn btn-outline-danger btn-sm"> <i
                                                class="fa-solid fa-trash-can"></i></button>
-                                       <button id="update" class="btn btn-outline-warning btn-sm"> <i
+                                       <button id="update" onclick="prepareUpdateInfo(${i})" class="btn btn-outline-warning btn-sm"> <i
                                                class="fa-solid fa-pen-to-square"></i></button>
                                    </div>
                                </div>
