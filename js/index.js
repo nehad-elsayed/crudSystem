@@ -20,25 +20,33 @@ if (localStorage.getItem("productContainer") !== null) {
 /************** END GLOBAL ***********************/
 /**************START FUNCTION addProduct ***************************/
 function addProduct() {
-  var product = {
-    name: productNameInput.value.trim(),
-    price: productPriceInput.value,
-    category: productCategoryInput.value.trim(),
-    description: productDescriptionInput.value.trim(),
-    image: productImageInput.files[0]
-      ? `images/${productImageInput.files[0].name}`
-      : "images/2.jpg",
-  };
+  if (
+    validationName() &&
+    validationPrice() &&
+    validationCategory() &&
+    validationDescription() &&
+    validationImage()
+  ) {
+    var product = {
+      name: productNameInput.value.trim(),
+      price: productPriceInput.value,
+      category: productCategoryInput.value.trim(),
+      description: productDescriptionInput.value.trim(),
+      image: productImageInput.files[0]
+        ? `images/${productImageInput.files[0]?.name}`
+        : "images/2.jpg",
+    };
 
-  productList.push(product);
+    productList.push(product);
 
-  displayData();
+    displayData();
 
-  console.log(productList);
+    console.log(productList);
 
-  localStorage.setItem("productContainer", JSON.stringify(productList));
+    localStorage.setItem("productContainer", JSON.stringify(productList));
 
-  clearForm();
+    clearForm();
+  }
 }
 /********End FUNCTION addProduct ***************************/
 
@@ -49,6 +57,12 @@ function clearForm() {
   productCategoryInput.value = null;
   productDescriptionInput.value = null;
   productImageInput.value = null;
+  //
+  productNameInput.classList.remove("is-valid");
+  productPriceInput.classList.remove("is-valid");
+  productCategoryInput.classList.remove("is-valid");
+  productDescriptionInput.classList.remove("is-valid");
+  productImageInput.classList.remove("is-valid");
 }
 /********END FUNCTION clearForm ***************************/
 
@@ -87,7 +101,7 @@ function searchItem() {
 /********END FUNCTION searchItems ***************************/
 
 function htmlData(i) {
-  var regex =new RegExp( productSearchInput.value,'gi')
+  var regex = new RegExp(productSearchInput.value, "gi");
   return `
         <div class="col">
                                <div class="card h-100" >
@@ -96,9 +110,13 @@ function htmlData(i) {
                                    } " alt=" ${productList[i].name} " />
                                    <div class="card-body text-center">
                                        <span class="badge">Id:${i + 1}</span>
-                                       <h3 class="card-title h6">${
-                                         productList[i].name.replace(regex,(match)=>`<span class="bg-warning">${match}</span>`)
-                                       }</h3>
+                                       <h3 class="card-title h6">${productList[
+                                         i
+                                       ].name.replace(
+                                         regex,
+                                         (match) =>
+                                           `<span class="bg-warning">${match}</span>`
+                                       )}</h3>
                                        <p class="card-text"> ${
                                          productList[i].price
                                        } </p>
@@ -140,22 +158,127 @@ function prepareUpdateInfo(index) {
 }
 
 function updateData() {
-  var product = {
-    name: productNameInput.value,
-    price: productPriceInput.value,
-    category: productCategoryInput.value,
-    description: productDescriptionInput.value,
-    image: productImageInput.files[0]
-      ? `images/${productImageInput.files[0]?.name}`
-      : "images/2.jpg",
-  };
+  if (
+    validationName() &&
+    validationPrice() &&
+    validationCategory() &&
+    validationDescription() &&
+    validationImage()
+  ) {
+    var product = {
+      name: productNameInput.value,
+      price: productPriceInput.value,
+      category: productCategoryInput.value,
+      description: productDescriptionInput.value,
+      image: productImageInput.files[0]
+        ? `images/${productImageInput.files[0]?.name}`
+        : "images/2.jpg",
+    };
 
-  productList.splice(newIndex, 1, product);
-  localStorage.setItem("productContainer", JSON.stringify(productList));
-  displayData();
-  clearForm();
+    productList.splice(newIndex, 1, product);
+    localStorage.setItem("productContainer", JSON.stringify(productList));
+    displayData();
+    clearForm();
 
-  btnAdd.classList.remove("d-none");
-  btnUpdate.classList.add("d-none");
+    btnAdd.classList.remove("d-none");
+    btnUpdate.classList.add("d-none");
+  }
 }
 /********END FUNCTION updateData ***************************/
+
+function validationName() {
+  var text = productNameInput.value;
+  var regex = /^[A-Za-z][a-z]{2,15}$/;
+  var msgName = document.getElementById("msgName");
+
+  if (regex.test(text) == true) {
+    productNameInput.classList.add("is-valid");
+    productNameInput.classList.remove("is-invalid");
+    msgName.classList.add("d-none");
+    return true;
+  } else {
+    productNameInput.classList.remove("is-valid");
+    productNameInput.classList.add("is-invalid");
+    msgName.classList.remove("d-none");
+    return false;
+  }
+}
+
+function validationPrice() {
+  var price = productPriceInput.value;
+  var regex = /^[0-9]{5,15}$/;
+  var msgPrice = document.getElementById("msgPrice");
+  if (regex.test(price) == true) {
+    productPriceInput.classList.add("is-valid");
+    productPriceInput.classList.remove("is-invalid");
+    msgPrice.classList.add("d-none");
+
+    return true;
+  } else {
+    productPriceInput.classList.remove("is-valid");
+    productPriceInput.classList.add("is-invalid");
+    msgPrice.classList.remove("d-none");
+
+    return false;
+  }
+}
+
+function validationCategory() {
+  var optionText = productCategoryInput.value;
+  var regex = /^(tv|mobile|screens|electronics)$/i;
+  var msgCategory = document.getElementById("msgCategory");
+
+  if (regex.test(optionText) == true) {
+    productCategoryInput.classList.add("is-valid");
+    productCategoryInput.classList.remove("is-invalid");
+    msgCategory.classList.add("d-none");
+
+    return true;
+  } else {
+    productCategoryInput.classList.remove("is-valid");
+    productCategoryInput.classList.add("is-invalid");
+    msgCategory.classList.remove("d-none");
+
+    return false;
+  }
+}
+
+function validationDescription() {
+  var text = productDescriptionInput.value;
+  var regex = /^.{5,30}$/m;
+  var descriptionMsg = document.getElementById("descriptionMsg");
+
+  if (regex.test(text) == true) {
+    productDescriptionInput.classList.add("is-valid");
+    productDescriptionInput.classList.remove("is-invalid");
+    descriptionMsg.classList.add("d-none");
+
+    return true;
+  } else {
+    productDescriptionInput.classList.remove("is-valid");
+    productDescriptionInput.classList.add("is-invalid");
+    descriptionMsg.classList.remove("d-none");
+
+    return false;
+  }
+}
+
+function validationImage() {
+  var imageInfo = productImageInput.value;
+  var regex = /^.{3,}\.(jpg|jpeg|svg|png|avif)$/;
+  var imageRule = document.getElementById("imageRule");
+
+  if (regex.test(imageInfo) == true) {
+    productImageInput.classList.add("is-valid");
+    productImageInput.classList.remove("is-invalid");
+    imageRule.classList.add("d-none");
+
+    return true;
+  } else {
+    productImageInput.classList.remove("is-valid");
+    productImageInput.classList.add("is-invalid");
+    imageRule.classList.remove("d-none");
+
+    return false;
+  }
+}

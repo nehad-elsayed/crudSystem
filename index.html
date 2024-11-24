@@ -20,18 +20,29 @@
                 <h1 class="text-center text-uppercase my-2">crud System</h1>
                 <div class="inputs">
                     <div class="form-floating mb-3 my-2">
-                        <input type="text" class="form-control" id="productName" placeholder="">
+                        <input oninput="validationName()" type="text" class="form-control" id="productName"
+                            placeholder="">
                         <label for="productName">ProductName</label>
+                        <p id="msgName" class="alert alert-danger d-none">
+                            "Enter a capital letter then from 2 to 15 small letters"
+                        </p>
                     </div>
                     <div class="form-floating mb-3 my-2">
-                        <input type="number" class="form-control" id="productPrice" placeholder="">
+                        <input oninput="validationPrice()" type="number" class="form-control" id="productPrice"
+                            placeholder="">
                         <label for="productPrice">ProductPrice</label>
+                        <p id="msgPrice" class="alert alert-danger d-none">
+                            you must enter from 5 to 15 numbers
+                        </p>
                     </div>
 
                     <div class="form-floating mb-3 my-2">
-                        <input list="list" type="text" class="form-control" id="productCategory" placeholder="">
+                        <input oninput="validationCategory()" list="list" type="text" class="form-control"
+                            id="productCategory" placeholder="">
                         <label for="productCategory">ProductCategory</label>
-
+                        <p id="msgCategory" class="alert alert-danger d-none"> " you must choose category from mobile or
+                            electronics or
+                            screens or tv"</p>
                         <datalist id="list">
                             <option value="tv"></option>
                             <option value="mobile"></option>
@@ -44,26 +55,32 @@
 
                     <div class="form-floating mb-3 my-2">
 
-                        <textarea id="productDescription" placeholder="" style="height: 100px;"
-                            class="form-control"></textarea>
+                        <textarea oninput="validationDescription()" id="productDescription" placeholder=""
+                            style="height: 100px;" class="form-control"></textarea>
                         <label for="productDescription">ProductDescription</label>
+                        <p id="descriptionMsg" class="alert alert-danger d-none"> "enter any message description for
+                            your
+                            product " </p>
 
                     </div>
 
 
 
                     <div class="form-floating mb-3 my-2">
-                        <input type="file" class="form-control" id="productImage" placeholder="">
+                        <input onchange="validationImage()" type="file" class="form-control" id="productImage"
+                            placeholder="">
                         <label for="productImage">ProductImage</label>
                     </div>
-
+                    <p id="imageRule" class="alert alert-danger d-none">
+                        "enter any img with any name but with any one of these extenssions jpg /jpeg/svg / png /avif"
+                    </p>
                     <button id="btnAdd" onclick="addProduct()" class="btn btn-primary btn-sm mb-3">Add Product</button>
                     <button id="btnUpdate" onclick="updateData()" class="btn btn-warning btn-sm mb-3 d-none">Update
                         Product</button>
                 </div>
             </div>
         </section>
-        <!-- ******************************* -->
+        <!-- ********************************* -->
         <section>
             <div class="container-fluid">
                 <input type="search" oninput="searchItem()" id="searchInput" placeholder="Search By Name"
